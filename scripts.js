@@ -12,15 +12,19 @@ function randomIntFromInterval(min, max) {
   }
 
 function playSingleRound(playerSelection, computerSelection) {
+  }
+
+function getUserInput() {
     let userChoice = prompt("Please choose your weapon: Rock, Paper or Scissors").toLowerCase();
-    let userInputValid = checkValidityUserInput();
+    let userInputValid = checkValidityUserInput(userChoice);
     while (!userInputValid) {
         let userChoice = prompt("That was not a valid choice! Please choose between 'Rock', 'Paper' and 'Scissors'").toLowerCase();
-        let userInputValid = checkValidityUserInput();
+        userInputValid = checkValidityUserInput(userChoice);
     }
-    let computerChoice = getComputerChoice().toLowerCase();
-
+    return userChoice
 }
+
+let userChoice = getUserInput();
 
 function checkValidityUserInput(userInput) {
     switch (userInput) {
@@ -30,6 +34,7 @@ function checkValidityUserInput(userInput) {
         return true;
         default:
         return false
+    }
 }
 
 
