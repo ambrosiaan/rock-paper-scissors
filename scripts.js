@@ -28,7 +28,7 @@ function getUserInput() {
     let userChoice = prompt("Please choose your weapon: Rock, Paper or Scissors").toLowerCase();
     let userInputValid = checkValidityUserInput(userChoice);
     while (!userInputValid) {
-        let userChoice = prompt("That was not a valid choice! Please choose between 'Rock', 'Paper' and 'Scissors'").toLowerCase();
+        userChoice = prompt("That was not a valid choice! Please choose between 'Rock', 'Paper' and 'Scissors'").toLowerCase();
         userInputValid = checkValidityUserInput(userChoice);
     }
     return capitalizeFirstLetter(userChoice)
