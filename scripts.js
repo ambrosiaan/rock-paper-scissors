@@ -26,23 +26,23 @@ function getUserInput() {
 
 let userChoice = getUserInput();
 let computerChoice = getComputerChoice();
-playSingleRound(userChoice, computerChoice);
+console.log(playSingleRound(userChoice, computerChoice));
 
 function playSingleRound(playerSelection, computerSelection) {
     if (playerSelection === computerSelection) {
-        console.log(`Its a tie! ${playerSelection} equals ${computerSelection}`)
+        return (`Its a tie! ${playerSelection} equals ${computerSelection}`)
     }
     else if (playerSelection === 'Scissors' && computerSelection === 'Paper'){
-        console.log(`You win! ${playerSelection} beats ${computerSelection}`)
+        return (`You win! ${playerSelection} beats ${computerSelection}`)
     }
     else if (playerSelection === 'Paper' && computerSelection === 'Rock') {
-        console.log(`You win! ${playerSelection} beats ${computerSelection}`)
+        return (`You win! ${playerSelection} beats ${computerSelection}`)
     }
     else if (playerSelection === 'Rock' && computerSelection === 'Scissors') {
-        console.log(`You win! ${playerSelection} beats ${computerSelection}`)
+        return (`You win! ${playerSelection} beats ${computerSelection}`)
     }
     else {
-        console.log(`You lose! ${computerSelection} beats ${playerSelection}`)
+        return (`You lose! ${computerSelection} beats ${playerSelection}`)
     }
 }
 
