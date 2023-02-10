@@ -1,6 +1,5 @@
 function getComputerChoice () {
     let options = ["Rock", "Paper", "Scissors"]
-
     let randomPick = options[randomIntFromInterval(0,2)]
     return randomPick
 }
@@ -14,38 +13,6 @@ function capitalizeFirstLetter(stringToCapitalize){
     return capitalized
 }
 
-function getUserInput() {
-    let userChoice = prompt("Please choose your weapon: Rock, Paper or Scissors").toLowerCase();
-    let userInputValid = checkValidityUserInput(userChoice);
-    while (!userInputValid) {
-        let userChoice = prompt("That was not a valid choice! Please choose between 'Rock', 'Paper' and 'Scissors'").toLowerCase();
-        userInputValid = checkValidityUserInput(userChoice);
-    }
-    return capitalizeFirstLetter(userChoice)
-}
-
-let userChoice = getUserInput();
-let computerChoice = getComputerChoice();
-console.log(playSingleRound(userChoice, computerChoice));
-
-function playSingleRound(playerSelection, computerSelection) {
-    if (playerSelection === computerSelection) {
-        return (`Its a tie! ${playerSelection} equals ${computerSelection}`)
-    }
-    else if (playerSelection === 'Scissors' && computerSelection === 'Paper'){
-        return (`You win! ${playerSelection} beats ${computerSelection}`)
-    }
-    else if (playerSelection === 'Paper' && computerSelection === 'Rock') {
-        return (`You win! ${playerSelection} beats ${computerSelection}`)
-    }
-    else if (playerSelection === 'Rock' && computerSelection === 'Scissors') {
-        return (`You win! ${playerSelection} beats ${computerSelection}`)
-    }
-    else {
-        return (`You lose! ${computerSelection} beats ${playerSelection}`)
-    }
-}
-
 function checkValidityUserInput(userInput) {
     switch (userInput) {
         case "rock":
@@ -57,8 +24,61 @@ function checkValidityUserInput(userInput) {
     }
 }
 
+function getUserInput() {
+    let userChoice = prompt("Please choose your weapon: Rock, Paper or Scissors").toLowerCase();
+    let userInputValid = checkValidityUserInput(userChoice);
+    while (!userInputValid) {
+        let userChoice = prompt("That was not a valid choice! Please choose between 'Rock', 'Paper' and 'Scissors'").toLowerCase();
+        userInputValid = checkValidityUserInput(userChoice);
+    }
+    return capitalizeFirstLetter(userChoice)
+}
 
-function testRandomness() {
+function playSingleRound(playerSelection, computerSelection) {
+    if (playerSelection === computerSelection) {
+        console.log(`Its a tie! ${playerSelection} equals ${computerSelection}. Try again`)
+        return 'Tie'
+    }
+    else if (playerSelection === 'Scissors' && computerSelection === 'Paper'
+    || playerSelection === 'Paper' && computerSelection === 'Rock'
+    || playerSelection === 'Rock' && computerSelection === 'Scissors') {
+        console.log(`You win! ${playerSelection} beats ${computerSelection}`)
+        return 'PlayerWon'
+    }
+    else {
+        console.log(`You lose! ${computerSelection} beats ${playerSelection}`)
+        return 'ComputerWon'
+    }
+}
+
+function game(numberOfRounds) {
+    let userScore = 0
+    let computerScore = 0
+    for (let i = 1; i <= numberOfRounds; i++){
+        let result = 'Tie'
+        while (result === 'Tie'){
+            let userChoice = getUserInput();
+            let computerChoice = getComputerChoice();
+            result = playSingleRound(userChoice, computerChoice)
+        }
+        if (result === 'PlayerWon'){
+            userScore++
+        }
+        else if (result === 'ComputerWon'){
+            computerScore++
+        }
+        else { 
+            console.log("Invalid outcome") 
+        }
+        console.log(`You have played ${i} rounds. Your have won ${userScore} rounds and lost ${computerScore} rounds` )
+    }
+    userScore > computerScore ? console.log(`You won! You have won ${userScore} rounds and lost ${computerScore} rounds`)
+    : console.log(`You lost! You have won ${userScore} rounds and lost ${computerScore} rounds`)
+}
+
+game(5);
+
+function testRandomnessComputerChoice() {
     let rockCounter = 0;
     let paperCounter = 0;
     let scissorsCounter = 0;
@@ -77,7 +97,7 @@ function testRandomness() {
                 scissorsCounter++
                 break;
                 default:
-                exception("Invalid answer")
+                console.log("Invalid answer")
             }
         }
     console.log(`In ${n} turns computer has chosen Rock ${rockCounter} times`)
