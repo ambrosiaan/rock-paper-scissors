@@ -5,14 +5,14 @@ function getComputerChoice () {
     return randomPick
 }
 
-
-
 function randomIntFromInterval(min, max) {
     return Math.floor(Math.random() * (max - min + 1) + min)
   }
 
-function playSingleRound(playerSelection, computerSelection) {
-  }
+function capitalizeFirstLetter(stringToCapitalize){
+    const capitalized = stringToCapitalize.charAt(0).toUpperCase() + stringToCapitalize.slice(1);
+    return capitalized
+}
 
 function getUserInput() {
     let userChoice = prompt("Please choose your weapon: Rock, Paper or Scissors").toLowerCase();
@@ -21,10 +21,30 @@ function getUserInput() {
         let userChoice = prompt("That was not a valid choice! Please choose between 'Rock', 'Paper' and 'Scissors'").toLowerCase();
         userInputValid = checkValidityUserInput(userChoice);
     }
-    return userChoice
+    return capitalizeFirstLetter(userChoice)
 }
 
 let userChoice = getUserInput();
+let computerChoice = getComputerChoice();
+playSingleRound(userChoice, computerChoice);
+
+function playSingleRound(playerSelection, computerSelection) {
+    if (playerSelection === computerSelection) {
+        console.log(`Its a tie! ${playerSelection} equals ${computerSelection}`)
+    }
+    else if (playerSelection === 'Scissors' && computerSelection === 'Paper'){
+        console.log(`You win! ${playerSelection} beats ${computerSelection}`)
+    }
+    else if (playerSelection === 'Paper' && computerSelection === 'Rock') {
+        console.log(`You win! ${playerSelection} beats ${computerSelection}`)
+    }
+    else if (playerSelection === 'Rock' && computerSelection === 'Scissors') {
+        console.log(`You win! ${playerSelection} beats ${computerSelection}`)
+    }
+    else {
+        console.log(`You lose! ${computerSelection} beats ${playerSelection}`)
+    }
+}
 
 function checkValidityUserInput(userInput) {
     switch (userInput) {
