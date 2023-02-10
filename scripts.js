@@ -76,7 +76,8 @@ function game(numberOfRounds) {
     : console.log(`You lost! You have won ${userScore} rounds and lost ${computerScore} rounds`)
 }
 
-game(5);
+let numberOfRounds = parseInt(prompt("Welcome to Rock, Paper, Scissors! How many rounds do you want to play?"))
+game(numberOfRounds);
 
 function testRandomnessComputerChoice() {
     let rockCounter = 0;
