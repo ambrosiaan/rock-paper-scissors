@@ -76,7 +76,10 @@ function game(numberOfRounds) {
     : console.log(`You lost! You have won ${userScore} rounds and lost ${computerScore} rounds`)
 }
 
-let numberOfRounds = parseInt(prompt("Welcome to Rock, Paper, Scissors! How many rounds do you want to play?"))
+let numberOfRounds = parseInt(prompt("Welcome to Rock, Paper, Scissors! How many rounds do you want to play? Please provide an odd number under 10"))
+while (isNaN(numberOfRounds) || numberOfRounds >=10 || numberOfRounds % 2 != 1) {
+    numberOfRounds = prompt("Invalid input, please provide an odd number under 10. How many rounds do you want to play?")
+}
 game(numberOfRounds);
 
 function testRandomnessComputerChoice() {
