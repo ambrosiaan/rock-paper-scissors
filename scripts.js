@@ -1,3 +1,20 @@
+let userScore = 0
+let computerScore = 0
+let gameOver = false
+
+document.querySelectorAll('button').forEach(button => {
+    button.addEventListener('click', playRound)
+})
+
+function playRound(e) {
+    if (gameOver) resetGame();
+    let computerChoice = getComputerChoice();
+    let userChoice = e.target.innerText;
+    let result = determineWinner(userChoice, computerChoice);
+    updateScore(result);
+    checkWinner();
+}
+
 function getComputerChoice () {
     let options = ["Rock", "Paper", "Scissors"]
     let randomPick = options[randomIntFromInterval(0,2)]
@@ -8,79 +25,57 @@ function randomIntFromInterval(min, max) {
     return Math.floor(Math.random() * (max - min + 1) + min)
   }
 
-function capitalizeFirstLetter(stringToCapitalize){
-    const capitalized = stringToCapitalize.charAt(0).toUpperCase() + stringToCapitalize.slice(1);
-    return capitalized
-}
-
-function checkValidityUserInput(userInput) {
-    switch (userInput) {
-        case "rock":
-        case "paper":
-        case "scissors":
-        return true;
-        default:
-        return false
-    }
-}
-
-function getUserInput() {
-    let userChoice = prompt("Please choose your weapon: Rock, Paper or Scissors").toLowerCase();
-    let userInputValid = checkValidityUserInput(userChoice);
-    while (!userInputValid) {
-        userChoice = prompt("That was not a valid choice! Please choose between 'Rock', 'Paper' and 'Scissors'").toLowerCase();
-        userInputValid = checkValidityUserInput(userChoice);
-    }
-    return capitalizeFirstLetter(userChoice)
-}
-
-function playSingleRound(playerSelection, computerSelection) {
+function determineWinner(playerSelection, computerSelection) {
     if (playerSelection === computerSelection) {
-        console.log(`Its a tie! ${playerSelection} equals ${computerSelection}. Try again`)
+        displayResults(`Its a tie! ${playerSelection} equals ${computerSelection}. Try again`)
         return 'Tie'
     }
     else if (playerSelection === 'Scissors' && computerSelection === 'Paper'
     || playerSelection === 'Paper' && computerSelection === 'Rock'
     || playerSelection === 'Rock' && computerSelection === 'Scissors') {
-        console.log(`You win! ${playerSelection} beats ${computerSelection}`)
+        displayResults(`You win! ${playerSelection} beats ${computerSelection}`)
         return 'PlayerWon'
     }
     else {
-        console.log(`You lose! ${computerSelection} beats ${playerSelection}`)
+        displayResults(`You lose! ${computerSelection} beats ${playerSelection}`)
         return 'ComputerWon'
     }
 }
 
-function game(numberOfRounds) {
-    let userScore = 0
-    let computerScore = 0
-    for (let i = 1; i <= numberOfRounds; i++){
-        let result = 'Tie'
-        while (result === 'Tie'){
-            let userChoice = getUserInput();
-            let computerChoice = getComputerChoice();
-            result = playSingleRound(userChoice, computerChoice)
-        }
-        if (result === 'PlayerWon'){
-            userScore++
-        }
-        else if (result === 'ComputerWon'){
-            computerScore++
-        }
-        else { 
-            console.log("Invalid outcome") 
-        }
-        console.log(`You have played ${i} rounds. Your have won ${userScore} rounds and lost ${computerScore} rounds` )
-    }
-    userScore > computerScore ? console.log(`You won! You have won ${userScore} rounds and lost ${computerScore} rounds`)
-    : console.log(`You lost! You have won ${userScore} rounds and lost ${computerScore} rounds`)
+function displayResults(resultText) { 
+    document.querySelector('#resultBox').innerText = resultText
 }
 
-let numberOfRounds = parseInt(prompt("Welcome to Rock, Paper, Scissors! How many rounds do you want to play? Please provide an odd number under 10"))
-while (isNaN(numberOfRounds) || numberOfRounds >=10 || numberOfRounds % 2 != 1) {
-    numberOfRounds = prompt("Invalid input, please provide an odd number under 10. How many rounds do you want to play?")
+function updateScore(result) {
+    if (result === 'PlayerWon'){
+        userScore++
+        document.querySelector('#userScore').innerText = `User: ${userScore}`
+    }
+    else if (result === 'ComputerWon'){
+        computerScore++
+        document.querySelector('#computerScore').innerText = `Computer: ${computerScore}`
+    }
 }
-game(numberOfRounds);
+
+function checkWinner(){
+    if (userScore >= 5) {
+        document.querySelector('#gameResult').innerText = `User has won 5 rounds, game over!`
+        gameOver = true
+    }
+    else if (computerScore >=5) {
+        document.querySelector('#gameResult').innerText = `Computer has won 5 rounds, game over!`
+        gameOver = true
+    }
+}
+
+function resetGame(){
+    userScore = 0;
+    computerScore = 0;
+    gameOver = false;
+    document.querySelector('#userScore').innerText = `User: ${userScore}`;
+    document.querySelector('#computerScore').innerText = `Computer: ${computerScore}`;
+    document.querySelector('#gameResult').innerText = ``;
+}
 
 function testRandomnessComputerChoice() {
     let rockCounter = 0;
