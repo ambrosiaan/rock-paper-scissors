@@ -1,0 +1,21 @@
+.cards {
+    display: flex;
+    justify-content: space-between;
+    align-self: space-between;
+}
+
+.card {
+
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#scoreCard {
+    padding: 6px;
+    display: flex;
+    gap: 12px;
+}
