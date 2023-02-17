@@ -12,6 +12,7 @@ h2 {
     display: flex;
     justify-content: space-between;
     align-self: space-between;
+    flex-shrink: 0;
 }
 
 .card {
@@ -95,3 +96,11 @@ body {
 .button:-webkit-details-marker {
   display: none;
 }
+
+canvas {
+    position:absolute;
+    top:0;
+    left:0;
+    width:100%;
+    height:100%;
+  }
